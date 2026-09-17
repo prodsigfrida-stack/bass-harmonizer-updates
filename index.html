@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BASS HARMONIZER — download</title>
+  <meta name="description" content="Download BASS HARMONIZER for Windows or Mac.">
+  <link rel="icon" href="plugin-ui.png">
+  <style>
+    :root {
+      --pink: #ff25c0;
+      --pink-hot: #ff6ad5;
+      --ink: #070507;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--ink);
+      color: #fff;
+      font-family: "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px 56px;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255, 37, 192, 0.22), transparent 55%),
+        radial-gradient(ellipse 60% 40% at 50% 110%, rgba(255, 37, 192, 0.08), transparent 50%),
+        var(--ink);
+    }
+
+    main {
+      width: min(720px, 100%);
+      text-align: center;
+    }
+
+    .plugin {
+      width: min(560px, 100%);
+      height: auto;
+      border-radius: 18px;
+      box-shadow:
+        0 0 0 1px rgba(255, 37, 192, 0.35),
+        0 0 60px rgba(255, 37, 192, 0.18),
+        0 28px 80px rgba(0, 0, 0, 0.65);
+    }
+
+    .byline {
+      margin: 28px 0 8px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--pink);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-weight: 600;
+      font-size: clamp(1.4rem, 3vw, 1.85rem);
+      letter-spacing: 0.02em;
+    }
+
+    .version {
+      margin: 0 0 28px;
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 14px;
+      min-height: 1.2em;
+    }
+
+    .downloads {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 560px) {
+      .downloads { grid-template-columns: 1fr; }
+    }
+
+    a.os {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 18px 16px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #fff;
+      border: 1.5px solid var(--pink);
+      background: transparent;
+      box-shadow: 0 0 18px rgba(255, 37, 192, 0.15);
+      transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    a.os:hover,
+    a.os:focus-visible {
+      background: var(--pink);
+      color: #1a0214;
+      transform: translateY(-1px);
+      box-shadow: 0 0 28px rgba(255, 37, 192, 0.45);
+      outline: none;
+    }
+
+    a.os .label {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    a.os .meta {
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      opacity: 0.8;
+    }
+
+    a.os:hover .meta,
+    a.os:focus-visible .meta { opacity: 0.9; }
+
+    a.os.suggested {
+      background: var(--pink);
+      color: #1a0214;
+      box-shadow: 0 0 28px rgba(255, 37, 192, 0.4);
+    }
+
+    .hint {
+      margin: 22px 0 0;
+      font-size: 13px;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .hint code {
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 11px;
+      color: var(--pink-hot);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <img class="plugin" src="plugin-ui.png" alt="BASS HARMONIZER plugin">
+    <p class="byline">by sigfrida</p>
+    <h1>Download BASS HARMONIZER</h1>
+    <p class="version" id="version"></p>
+    <div class="downloads">
+      <a class="os" id="win" href="https://github.com/prodsigfrida-stack/bass-harmonizer-updates/releases/download/latest/BASS-HARMONIZER_Windows_x64_VST3.zip">
+        <span class="label">Windows</span>
+        <span class="meta">VST3 zip · x64</span>
+      </a>
+      <a class="os" id="mac" href="https://github.com/prodsigfrida-stack/bass-harmonizer-updates/releases/download/latest/BASS-HARMONIZER-macOS-VST3.zip">
+        <span class="label">Mac</span>
+        <span class="meta">VST3 zip · universal</span>
+      </a>
+    </div>
+    <p class="hint">
+      Windows: drop the <code>.vst3</code> into <code>C:\Program Files\Common Files\VST3\</code><br>
+      Mac: drop it into <code>~/Library/Audio/Plug-Ins/VST3/</code> or <code>/Library/Audio/Plug-Ins/VST3/</code><br>
+      Then restart your DAW or rescan plug-ins.
+    </p>
+  </main>
+  <script>
+    const ua = navigator.userAgent || "";
+    const isMac = /Mac|iPhone|iPad/.test(ua);
+    const isWin = /Windows/.test(ua);
+    if (isMac) document.getElementById("mac").classList.add("suggested");
+    else if (isWin) document.getElementById("win").classList.add("suggested");
+
+    fetch("https://api.github.com/repos/prodsigfrida-stack/bass-harmonizer-updates/releases/tags/latest")
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        if (!data) return;
+        const name = (data.name || "").replace(/^BASS HARMONIZER\s*/i, "").trim();
+        if (name) document.getElementById("version").textContent = "version " + name;
+      })
+      .catch(() => {});
+  </script>
+</body>
+</html>
