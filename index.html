@@ -131,6 +131,122 @@
       font-size: 11px;
       color: var(--pink-hot);
     }
+
+    .feedback {
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      text-align: left;
+    }
+
+    .feedback h2 {
+      margin: 0 0 6px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    .feedback .note {
+      margin: 0 0 16px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.5);
+      text-align: center;
+    }
+
+    .thanks {
+      display: block;
+      margin: 0 0 16px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(255, 37, 192, 0.12);
+      border: 1px solid rgba(255, 37, 192, 0.35);
+      color: var(--pink-hot);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .thanks[hidden] { display: none; }
+
+    .feedback label {
+      display: block;
+      margin: 0 0 12px;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .feedback .opt {
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+      opacity: 0.7;
+    }
+
+    .feedback input[type="text"],
+    .feedback input[type="email"],
+    .feedback textarea {
+      display: block;
+      width: 100%;
+      margin-top: 6px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      color: #fff;
+      font: inherit;
+      font-size: 14px;
+    }
+
+    .feedback textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .feedback input[type="text"]:focus,
+    .feedback input[type="email"]:focus,
+    .feedback textarea:focus {
+      outline: none;
+      border-color: var(--pink);
+      box-shadow: 0 0 0 1px rgba(255, 37, 192, 0.35);
+    }
+
+    .feedback .honey {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    .feedback button {
+      width: 100%;
+      margin-top: 6px;
+      padding: 14px 16px;
+      border-radius: 999px;
+      border: 1.5px solid var(--pink);
+      background: transparent;
+      color: #fff;
+      font: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(255, 37, 192, 0.15);
+      transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+    }
+
+    .feedback button:hover,
+    .feedback button:focus-visible {
+      background: var(--pink);
+      color: #1a0214;
+      transform: translateY(-1px);
+      box-shadow: 0 0 28px rgba(255, 37, 192, 0.45);
+      outline: none;
+    }
   </style>
 </head>
 <body>
@@ -153,6 +269,32 @@
       Mac: drop the <code>.vst3</code> folder into <code>~/Library/Audio/Plug-Ins/VST3/</code> or <code>/Library/Audio/Plug-Ins/VST3/</code><br>
       Then restart your DAW or rescan plug-ins.
     </p>
+    <section class="feedback" aria-labelledby="feedback-heading">
+      <h2 id="feedback-heading">Tell me what you think</h2>
+      <p class="note">This goes straight to me (the developer), not a company support desk.</p>
+      <p class="thanks" id="thanks" hidden>Thanks — I got your note.</p>
+      <form action="https://formsubmit.co/prod.sigfrida@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="BASS HARMONIZER feedback">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://prodsigfrida-stack.github.io/bass-harmonizer-updates/?thanks=1">
+        <input type="hidden" name="_replyto" id="replyto" value="">
+        <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off">
+        <label>
+          Name <span class="opt">(optional)</span>
+          <input type="text" name="name" autocomplete="name">
+        </label>
+        <label>
+          Email <span class="opt">(optional)</span>
+          <input type="email" name="email" id="feedback-email" autocomplete="email">
+        </label>
+        <label>
+          Message
+          <textarea name="message" required rows="5"></textarea>
+        </label>
+        <button type="submit">Send feedback</button>
+      </form>
+    </section>
   </main>
   <script>
     const ua = navigator.userAgent || "";
@@ -169,6 +311,15 @@
         if (name) document.getElementById("version").textContent = "version " + name;
       })
       .catch(() => {});
+
+    if (new URLSearchParams(location.search).get("thanks") === "1") {
+      document.getElementById("thanks").hidden = false;
+    }
+
+    document.querySelector(".feedback form").addEventListener("submit", function () {
+      const email = (document.getElementById("feedback-email").value || "").trim();
+      document.getElementById("replyto").value = email;
+    });
   </script>
 </body>
 </html>
