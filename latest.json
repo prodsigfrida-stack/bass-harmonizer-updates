@@ -1,5 +1,5 @@
 {
-  "version": "2.0.6",
+  "version": "2.0.7",
   "macos": "https://github.com/prodsigfrida-stack/bass-harmonizer-updates/releases/download/latest/BASS-HARMONIZER-macOS-VST3.zip",
   "windows": "https://github.com/prodsigfrida-stack/bass-harmonizer-updates/releases/download/latest/BASS-HARMONIZER_Windows_x64_VST3.zip"
 }
